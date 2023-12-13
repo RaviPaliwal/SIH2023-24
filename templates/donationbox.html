@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <title>Document</title>
+  <style>
+    /* body{
+      background-color: black;
+    } */
+    .don-box{
+      background-color: whitesmoke;
+      overflow: hidden;
+      border-radius: 20px;
+      width: 100%;
+      height: 250px;
+      position: absolute;
+      top: 384%;
+      display: flex;
+      flex-flow: column wrap;
+    }
+    .don-box-top {
+      background-color: rgb(1, 1, 94);
+      color: white;
+      display: flex;
+      flex-direction: row;
+      padding: 10px;
+      justify-content: space-evenly;
+      width: 100%;
+      height: 50px;
+      text-align: center;
+      position: relative;
+      top: 0;
+      left: 0;
+    }
+    .don-box-top i {
+      margin-top: 10px;
+    }
+    .one-time {
+      border: 2px solid blue;
+      top: 50px;
+      left: 20px;
+      position: relative;
+      padding: 5px;
+      border-radius: 5px;
+      text-align: center;
+      font-size: 1.2em;
+      color: rgb(1, 1, 94);
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 50px;
+      width: 110px;
+      transition: transform 0.3s ease-in-out;
+    }
+    .monthly {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 50px;
+      width: 110px;
+      background-color: rgb(1, 1, 94);
+      position: relative;
+      top: -12px;
+      left:143px ;
+      padding: 5px;
+      border-radius: 5px;
+      text-align: center;
+      font-size: 1.2em;
+      color: white;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      transition: transform 0.3s ease-in-out;
+    }
+    .one-time:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .monthly:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .don-box-top i {
+      transition: transform 0.3s ease-in-out;
+    }
+    .don-box-top i:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .amount-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      border: 2px solid blue;
+    }
+
+    .amount1 {
+      position: relative;
+    }
+
+    .amount2 {
+      position: relative;
+    }
+
+    .amount-box {
+      border: 2px solid rgb(176, 176, 209);
+      border-radius: 8px;
+      height: 50px;
+      width: 100px;
+      display: inline-block;
+      text-align: center;
+      line-height: 50px;
+      margin: 5px;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .amount {
+      position: relative;
+      height: 30px;
+      width: 300px;
+      border-radius: 5px;
+      border: 2px solid rgb(176, 176, 209);
+    }
+    .amount:hover{
+      border: 2px solid blue;
+    }
+        #next {
+      position: relative;
+      text-align: center;
+      font-size: 2em;
+      background-color: blue;
+      height: 50px;
+      width: 300px;
+      color: white;
+      border-radius: 10px;
+      border: 0px;
+      transition: transform 0.3s ease-in-out;
+    }
+    #next:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      background-color: rgb(122, 122, 248);
+    }
+  </style>
+</head>
+<body>
+  <div class="don-box">
+    <div class="don-box-top">
+      <h4> Donate Amount</h4>
+      <i class="fas fa-lock"></i>
+      <i class="far fa-square"></i>
+      <i class="far fa-square"></i>
+      <i class="fas fa-arrow-right"></i>
+    </div>
+  <div class="container3">
+    <h2 style="position: relative;left:37%;color: rgb(1, 1, 94) ;">SUPPORT PEOPLE</h2>
+    <h5 style="position: relative;left:75%;color: rgb(1, 1, 94) ;">You can give Custom Amount here</h5>
+    <div class="one-time">
+      <h4>One-time</h4>
+    </div>
+    <div class="monthly">
+      <h4>Monthly</h4>
+    </div>
+  </div>
+  <div class="amount1">
+    <div class="amount-box">$100</div>
+    <div class="amount-box">$200</div>
+    <div class="amount-box">$300</div>
+  </div>
+  <div class="amount2">
+    <div class="amount-box">$400</div>
+    <div class="amount-box">$500</div>
+    <div class="amount-box">$600</div>
+  </div>
+  <input type="text" placeholder="$ Custom Amount" class="amount">
+  <button id="next">NEXT</button>
+</div>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Sensor Data</title>
+</head>
+<body>
+    <h1>Real-Time Sensor Data</h1>
+    <ul id="sensor-data"></ul>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>
+    <script>
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+        socket.on('sensor_data', function(data) {
+            var sensorList = document.getElementById('sensor-data');
+            var listItem = document.createElement('li');
+            listItem.appendChild(document.createTextNode(data));
+            sensorList.appendChild(listItem);
+        });
+    </script>
+</body>
+</html>

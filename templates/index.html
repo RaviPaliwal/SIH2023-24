@@ -1,0 +1,1072 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="static/index.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <title>Avalanche Protec</title>
+  <style>
+    body{
+      display: flex;
+      flex-direction: column;
+      background:linear-gradient(to right,white,#c4e3fd,skyblue);
+    }
+
+    a.nav-link {
+      color: #343434;
+      text-decoration: none;
+      min-width: 80px;
+    }
+
+    a.nav-link.active {
+      color: #ffffff;
+      font-weight: bold
+    }
+
+    #scrollContent {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      white-space: nowrap;
+    }
+
+    #scrollContent>div {
+      display: flex;
+      animation: textScrollEffect 50s infinite linear;
+    }
+
+    @keyframes textScrollEffect {
+      0% {
+        transform: translateX(0%);
+      }
+
+      100% {
+        transform: translateX(-100%);
+      }
+
+    }
+
+    .container1 {
+      border-radius: 20px;
+      padding: 10px;
+      border: 2px solid blue;
+    }
+
+    .About {
+      width: 50%;
+      height: 100%;
+      background-color: aliceblue;
+      display: flex;
+      justify-content: flex-start;
+      margin-left: 20px;
+      margin-top: 20px;
+      border-radius: 20px;
+    }
+
+    .slider {
+      margin-top: 20px;
+      margin-left: 10px;
+      /* margin: 10px; */
+    }
+
+    .slider img {
+      border-radius: 20px;
+    }
+
+    .top {
+      display: flex;
+      flex-flow: row wrap;
+    }
+
+    .warning {
+      margin-top: 50px;
+      margin-left: 150px;
+      margin-bottom: 40px;
+      border-radius: 20px;
+      background: white;
+      height: 500px;
+      width: 400px;
+      overflow: hidden;
+      /* Ensure overflow doesn't show beyond box */
+    }
+
+    .top-part {
+      height: 15%;
+      background-color: rgb(51, 49, 49);
+      /* Color for the top part */
+    }
+
+    .slider {
+      position: relative;
+    }
+
+    .weather-section {
+      position: absolute;
+      top: 20px;
+      /* Adjust top positioning */
+      left: 20px;
+      /* Adjust left positioning */
+      color: white;
+      /* Set text color */
+      background-color: rgba(0, 0, 0, 0.7);
+      /* Set background color with transparency */
+      padding: 20px;
+      border-radius:20px;
+    }
+
+    .mid {
+      display: flex;
+      flex-direction: row;
+    }
+
+    .Mitigation {
+      margin-top: 10px;
+      margin-left: 10%;
+      margin-bottom: 40px;
+      border-radius: 20px;
+      background: rgb(206, 231, 255);
+      height: 600px;
+      width: 500px;
+      overflow: hidden;
+      padding-top: 10px;
+      padding-left: 40px;
+    }
+
+    .footer {
+      position: absolute;
+      left: 50px;
+      top: 800%;
+      display: inline-flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      width: 93%;
+
+    }
+
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .contact {
+      position: relative;
+      min-height: 100vh;
+      padding: 50px 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      background: #222;
+    }
+
+    .contact .content {
+      max-width: 800px;
+      text-align: center;
+    }
+
+    .contact .content h2 {
+      font-size: 3em;
+      color: #fff;
+      font-weight: 500;
+    }
+
+    .contact .content p {
+      color: #fff;
+      font-size: 1.1em;
+      font-weight: 300;
+    }
+
+    .container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 50px;
+      margin-top: 30px;
+    }
+
+    .container .contactInfo {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container .contactInfo .box {
+      position: relative;
+      padding: 20px 0;
+      display: flex;
+      cursor: pointer;
+    }
+
+    .container .contactInfo .box .icon {
+      min-width: 60px;
+      height: 60px;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.75em;
+      transition: 0.5s;
+    }
+
+    .container .contactInfo .box:hover .icon {
+      background: #00bcd4;
+      color: #fff;
+    }
+
+    .container .contactInfo .box .text {
+      display: flex;
+      flex-direction: column;
+      margin-left: 20px;
+      font-size: 1.1em;
+      color: #fff;
+      font-weight: 300;
+    }
+
+    .container .contactInfo .box .text h3 {
+      font-weight: 500;
+      color: #00bcd4;
+    }
+
+    .container .contactInfo .txt {
+      color: #fff;
+      margin-top: 50px;
+      font-weight: 500;
+      padding-left: 10px;
+      border-left: 50px solid #e91e63;
+      line-height: 1em;
+    }
+
+    .sci {
+      position: relative;
+      display: flex;
+      gap: 30px;
+      margin: 20px 0;
+    }
+
+    .sci li {
+      list-style: none;
+    }
+
+    .sci li a {
+      color: #fff;
+      font-size: 2em;
+      transition: 0.5s;
+    }
+
+    .sci li a:hover {
+      color: #00bcd4;
+    }
+
+
+    .container .contactForm {
+      position: relative;
+      width: 40%;
+      background: #fff;
+      min-height: 100px;
+      padding: 60px;
+    }
+
+    .container .contactForm h2 {
+      font-size: 2em;
+      color: #333;
+      font-weight: 500;
+    }
+
+    .container .contactForm .inputBox {
+      position: relative;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .container .contactForm .inputBox input,
+    .container .contactForm .inputBox textarea {
+      width: 100%;
+      padding: 5px 0;
+      font-size: 1.1em;
+      margin: 10px 0;
+      border: none;
+      border-bottom: 2px solid #333;
+      outline: none;
+      resize: none;
+    }
+
+    .container .contactForm .inputBox span {
+      position: absolute;
+      left: 0;
+      pointer-events: none;
+      padding: 5px 0;
+      margin: 10px 0;
+      font-size: 1.1em;
+      color: #666;
+      transition: 0.5s;
+    }
+
+    .container .contactForm .inputBox input:focus~span,
+    .container .contactForm .inputBox textarea:focus~span,
+    .container .contactForm .inputBox input:valid~span,
+    .container .contactForm .inputBox textarea:valid~span {
+      color: #e91e63;
+      font-size: 0.9em;
+      transform: translateY(-20px);
+    }
+
+    .container .contactForm .inputBox input[type="submit"] {
+      width: 100px;
+      background: #00bcd4;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      padding: 10px;
+      font-size: 1.1em;
+      font-weight: 500;
+    }
+
+    @media (max-width: 991px) {
+      .contact {
+        padding: 50px;
+      }
+
+      .container {
+        flex-direction: column;
+      }
+
+      .container .contactInfo,
+      .container .contactForm {
+        width: 100%;
+      }
+
+      .container .contactForm {
+        padding: 50px 30px;
+      }
+    }
+
+    .map-container {
+      width: 100%;
+      height: 500px;
+      /* Use 100% of the viewport height */
+      margin: 20px 0;
+    }
+
+    .custom-marker {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      transition: background-color 0.3s ease-in-out;
+    }
+
+    .marker-red {
+      background-color: red;
+    }
+
+    .marker-green {
+      background-color: green;
+    }
+
+    .marker-yellow {
+      background-color: yellow;
+    }
+
+    .custom-marker:hover {
+      background-color: #ccc;
+      /* Change the color on hover */
+    }
+
+    #map {
+
+      height: 80vh;
+      width: 150vh;
+      position: absolute;
+      top: 280%;
+      left: 15%;
+      border-radius: 20px;
+      border: 2px blue solid;
+    }
+
+    .don-box {
+      background-color: whitesmoke;
+      overflow: hidden;
+      border-radius: 20px;
+      width: 100%;
+      height: 250px;
+      position: absolute;
+      top: 384%;
+    }
+
+    .don-box-top {
+      background-color: rgb(1, 1, 94);
+      color: white;
+      display: flex;
+      flex-direction: row;
+      padding: 10px;
+      justify-content: space-evenly;
+      width: 100%;
+      height: 50px;
+      text-align: center;
+      position: relative;
+      top: 0;
+      left: 0;
+    }
+
+    .don-box-top i {
+      margin-top: 10px;
+    }
+
+    .one-time {
+      border: 2px solid blue;
+      position: absolute;
+      top: 935px;
+      left: 25px;
+      padding: 5px;
+      border-radius: 5px;
+      text-align: center;
+      font-size: 1.2em;
+      color: rgb(1, 1, 94);
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 50px;
+      width: 110px;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .monthly {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 50px;
+      width: 110px;
+      background-color: rgb(1, 1, 94);
+      position: absolute;
+      top: 935px;
+      left: 10%;
+      padding: 5px;
+      border-radius: 5px;
+      text-align: center;
+      font-size: 1.2em;
+      color: white;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .one-time:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .monthly:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .don-box-top i {
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .don-box-top i:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .amount-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      border: 2px solid blue;
+    }
+
+    .amount1 {
+      position: absolute;
+      top: 2535px;
+      left: 23%;
+    }
+
+    .amount2 {
+      position: absolute;
+      top: 2535px;
+      left: 48.5%;
+    }
+
+    .amount-box {
+      border: 2px solid rgb(176, 176, 209);
+      border-radius: 8px;
+      height: 50px;
+      width: 100px;
+      display: inline-block;
+      text-align: center;
+      line-height: 50px;
+      margin: 5px;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .amount {
+      position: absolute;
+      top: 2555px;
+      left: 75%;
+      height: 30px;
+      width: 300px;
+      border-radius: 5px;
+      border: 2px solid rgb(176, 176, 209);
+    }
+    .amount:hover{
+      border: 2px solid blue;
+    }
+
+    #next {
+      position: absolute;
+      top: 2600px;
+      left: 35%;
+      text-align: center;
+      font-size: 2em;
+      background-color: blue;
+      height: 50px;
+      width: 300px;
+      color: white;
+      border-radius: 10px;
+      border: 0px;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    #next:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      background-color: rgb(122, 122, 248);
+    }
+
+    .container3 {
+      position: relative;
+      top: 50px;
+    }
+    .chart{
+      background-color: white;
+      position: absolute;
+      top: 2800px;
+      left: 200px;
+      display: flex;
+      align-self: center;
+    }
+    #subNavContainer{
+      display: flex;
+      justify-content: space-evenly;
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="header">
+     <h1 style="text-align: center; color:#000000;font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">AVALANCHE PROTEC</h1>
+     <h6 style="text-align: center; color:#2e2b2bda;font-weight: 600;word-spacing: px;font-family: sans-serif;">Welcome to Avalanche Protec: Your Safety in Snowy Terrain</h6>
+  </div>
+  <div class="navigation-bar">
+  <div class="border-bottom border-top" id="subNavContainer" style="background-color:blue;">
+    <nav class="navbar navbar-expand-md">
+      <div class="container-fluid">
+        <div class=" collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav mx-auto ">
+            <li class="nav-item">
+              <a class="nav-link mx-2 active" aria-current="page" href="#">News</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link mx-2" href="#" style="color: white;font-weight: 520;">Current</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link mx-2" href="#" style="color: white;font-weight: 520;">Local</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link mx-2" href="#" style="color: white;font-weight: 520;">Sports</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link mx-2" href="#" style="color: white;font-weight: 520;">Classified</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link mx-2" href="#" style="color: white;font-weight: 520;">Contact Us</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link mx-2 dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                data-bs-toggle="dropdown" aria-expanded="false" style="color: white;font-weight: 520;">
+                Company
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <li><a class="dropdown-item" href="#">Blog</a></li>
+                <li><a class="dropdown-item" href="#">About Us</a></li>
+                <li><a class="dropdown-item" href="#">Contact us</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <li style="display:flex; align-self: flex-end;">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+      </div>
+    </nav>
+  </div>
+
+  <div class="border-bottom d-flex">
+    <div>
+      <div class="py-2 px-5 bg-danger text-white">Updates</div>
+    </div>
+    <div class="px-1" style="overflow:hidden;background-color:#97D2FB;">
+      <div id="scrollContent" class="text-light">
+        <div style="font-weight:500 ;color: #000;">"Urgent Alert: High Avalanche Risk in Colorado's Rocky Mountains!
+          Recent heavy snowfall increases danger in backcountry terrain.
+          Experts advise extreme caution; avoid non-essential travel.
+          Ski resorts and remote areas face heightened avalanche threats.
+          Stay informed with real-time updates from local authorities.
+          "</div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+  <br><br>
+  <div class="top">
+    <div class="About">
+      <div class="container1">
+        <h2>About Us</h2>
+        <p>Welcome to our website! We are six ambitious students who are passionate about reducing casualties through
+          advanced technology. Together, we've created a system that uses IoT devices to detect and issue warnings of
+          deadly avalanches. Our system allows for prompt response, allowing rescue workers to reach affected areas
+          quickly and save lives.
+          <br>
+          We strive to continue innovating in the field of avalanche detection and warning, working tirelessly to ensure
+          that our system remains up-to-date and effective in protecting lives.
+        </p>
+        <hr>
+        <p>Our system combines data from IoT devices with advanced algorithms to detect and issue warnings of deadly
+          avalanches in real time. This allows rescue workers to quickly pinpoint and reach affected areas before it's
+          too late. In addition to saving lives, our systems can also reduce the risks of property damage and
+          infrastructure disruption.
+
+          We are motivated by the idea of saving lives and reducing the impacts of natural disasters. Our system is
+          designed to be easy to use and highly effective. We are committed to continued innovation and improvement in
+          avalanche detection and warning.</p>
+        <hr>
+      </div>
+    </div>
+    <div class="slider">
+      <img class="d-block w-100"
+        src="https://img.freepik.com/free-photo/beautiful-scenery-summit-mount-everest-covered-with-snow-white-clouds_181624-21317.jpg?size=626&ext=jpg&ga=GA1.1.1222169770.1701907200&semt=ais"
+        alt="First slide">
+      <div class="weather-section">
+        <h2>Weather Forecast for Siachen Glacier</h2>
+        <div id="weather-boardcast"></div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <br><br>
+  <div class="news">
+    <div class="p-3 bg-light">
+      <div class="container1">
+        <div class="row align-items-center">
+          <div class="col-lg-3 col-md-3 d-none d-md-block">
+            <div><i class="fas fa-cloud-moon-rain me-2 fs-3 text-info"></i> <strong>Bridgeport, CT</strong>
+            </div>
+            <div class="mt-1 text-secondary">
+              <i class="fab fa-facebook-square fs-5 me-2"></i>
+              <i class="fab fa-twitter-square fs-5 me-2"></i>
+              <i class="fas fa-thumbtack fs-5 me-2"></i> Subscribe
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 text-center">
+            <div class="display-6">DAILY NEWS</div>
+            <div class="text-secondary">Friday, Nov 18, 2022</div>
+          </div>
+          <div class="col-lg-3 col-md-3 text-end d-none d-md-block">
+            <div class="mt-2"><strong>Trending :</strong> Big story tonight</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br><br>
+    <div class="mid">
+      <div class="warning">
+        <div class="top-part">
+          <p style="color: white;text-align: center;"><br><b>WARNING</b> Message</p>
+          <br>
+        </div>
+        <div class="bottom-part">
+          <img src="static/warning.jpeg" width="400px" height=auto alt="">
+          <p style="text-align: center;font-size: medium;font-weight:bold;margin-top: 20px;">Places under red alert</p>
+        </div>
+      </div>
+      <div class="Mitigation">
+        <h4 style="color: blue;font-weight: 550;">AVALANCHE SAFETY TIPS</h4>
+        <ol>
+          <li>Stay Informed:
+            <ul>
+              <li>Check avalanche forecasts regularly.</li>
+              <li>Be aware of local conditions and warnings.</li>
+            </ul>
+          </li>
+        
+          <li>Equip Yourself:
+            <ul>
+              <li>Wear proper avalanche safety gear: beacon, probe, and shovel.</li>
+              <li>Ensure your gear is in good working condition.</li>
+            </ul>
+          </li>
+        
+          <li>Travel Safely:
+            <ul>
+              <li>Choose safe routes, avoiding known avalanche-prone areas.</li>
+              <li>Travel with a partner and keep an eye on each other.</li>
+            </ul>
+          </li>
+        
+          <li>Be Observant:
+            <ul>
+              <li>Watch for signs of instability like recent avalanches or cracking snow.</li>
+              <li>Listen for unusual sounds like whumping or settling.</li>
+            </ul>
+          </li>
+        
+          <li>Know When to Turn Back:
+            <ul>
+              <li>Do not be afraid to abandon your plans if conditions worsen.</li>
+            </ul>
+          </li>
+        
+          <li>Survival Techniques:
+            <ul>
+              <li>If caught, try to move to the side to avoid the full force of the avalanche.</li>
+              <li>Swim and fight to stay on the surface.</li>
+            </ul>
+          </li>
+        
+          <li>Signal for Help:
+            <ul>
+              <li>Use an avalanche beacon to aid rescuers in locating you.</li>
+              <li>Make noise to alert others if you are on the surface.</li>
+            </ul>
+          </li>
+        </ol>      
+      </div>
+    </div>
+    <h1 style="position: absolute;top: 260%;left: 43%;font-size: 4em;background-color: white;padding: 10px;padding-left: 20px;padding-right: 20px;border-radius: 20px">MAP</h1>
+    <div id="map">
+    </div>
+    <div class="don-box">
+      <div class="don-box-top">
+        <h4> Donate Amount</h4>
+        <i class="fas fa-lock"></i>
+        <i class="far fa-square"></i>
+        <i class="far fa-square"></i>
+        <i class="fas fa-arrow-right"></i>
+      </div>
+    </div>
+    <div class="container3">
+      <h2 style="position: absolute;top: 880px;left:37%;color: rgb(1, 1, 94) ;">SUPPORT PEOPLE</h2>
+      <h5 style="position: absolute;top: 920px;left:75%;color: rgb(1, 1, 94) ;">You can give Custom Amount here</h5>
+      <div class="one-time">
+        <h4>One-time</h4>
+      </div>
+      <div class="monthly">
+        <h4>Monthly</h4>
+      </div>
+    </div>
+    <div class="amount1">
+      <div class="amount-box">$100</div>
+      <div class="amount-box">$200</div>
+      <div class="amount-box">$300</div>
+    </div>
+    <div class="amount2">
+      <div class="amount-box">$400</div>
+      <div class="amount-box">$500</div>
+      <div class="amount-box">$600</div>
+    </div>
+    <input type="text" placeholder="$ Custom Amount" class="amount">
+    <button id="next">NEXT</button>
+    <br><br>
+    <h2 style="position: absolute;top: 2720px;left: 500px;">Avalanche Prediction Graph</h2>
+   <div class="chart">
+    <canvas id="avalancheGraph" width="1000" height="550"></canvas>
+   </div>
+
+    <div class="footer">
+      <section class="contact">
+        <div class="content">
+          <h2>Contact Us</h2>
+          <p>We're here to assist you! Feel free to reach out with any questions or inquiries, and we'll get back to you
+            promptly.</p>
+        </div>
+        <div class="container2">
+          <div class="contactInfo">
+            <div class="box">
+              <div class="icon"><ion-icon name="location-outline"></ion-icon></div>
+              <div class="text">
+                <h3>Address</h3>
+                <p>402671 Sugar Camp Road,<br>Owatonna,Minnesota,<br>55025060</p>
+              </div>
+            </div>
+            <div class="box">
+              <div class="icon"><ion-icon name="call-outline"></ion-icon></div>
+              <div class="text">
+                <h3>Phone</h3>
+                <p>000-000-0000</p>
+              </div>
+            </div>
+            <div class="box">
+              <div class="icon"><ion-icon name="mail-outline"></ion-icon></div>
+              <div class="text">
+                <h3>Email</h3>
+                <p>wrub7d78i0e@temporary-mail</p>
+              </div>
+            </div>
+            <h2 class="txt">Connect with us</h2>
+            <ul class="sci">
+              <li><a href="#"><ion-icon name="logo-facebook"></ion-icon></a></li>
+              <li><a href="#"><ion-icon name="logo-twitter"></ion-icon></a></li>
+              <li><a href="#"><ion-icon name="logo-linkedin"></ion-icon></a></li>
+              <li><a href="#"><ion-icon name="logo-instagram"></ion-icon></a></li>
+            </ul>
+          </div>
+
+          <div class="contactForm">
+            <form>
+              <h2>Send Message</h2>
+              <div class="inputBox">
+                <input type="text" name="" required="required">
+                <span>Full Name</span>
+              </div>
+              <div class="inputBox">
+                <input type="text" name="" required="required">
+                <span>Email</span>
+              </div>
+              <div class="inputBox">
+                <textarea required="required"></textarea>
+                <span>Type your Message...</span>
+              </div>
+              <div class="inputBox">
+                <input type="submit" value="Send">
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </div>
+      
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Fetch weather data from the API
+        fetchWeatherData();
+      });
+
+      function fetchWeatherData() {
+        // Replace 'YOUR_API_KEY' with your actual API key from OpenWeatherMap
+        const apiKey = 'b6441e6ed7469cf707b705761376802f';
+        const location = 'Siachen,IN'; // Replace with the specific location
+
+        // Use a weather API (for example, OpenWeatherMap API)
+        const apiUrl = "https://api.openweathermap.org/data/2.5/weather?lat=35.421226&lon=77.109540&appid=b6441e6ed7469cf707b705761376802f";
+
+        fetch(apiUrl)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("HTTP error! Status: ${response.status}");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            // Handle the retrieved weather data
+            displayWeatherData(data);
+          })
+          .catch((error) => console.error("Error fetching weather data:", error));
+      }
+
+      function displayWeatherData(data) {
+        const weatherBoardcastElement = document.getElementById('weather-boardcast');
+
+        // Extract relevant weather information from the data
+        const temperature = data.main.temp;
+        const description = data.weather[0].description;
+        const precipitation = data.rain ? (data.rain['1h'] || 0) : 0; // Precipitation in the last 1 hour (if available)
+        const humidity = data.main.humidity;
+        const windSpeed = convertMetersPerSecondToKilometersPerHour(data.wind.speed);
+        const windDirection = data.wind.deg;
+
+        // Update the weather broadcast element
+        weatherBoardcastElement.innerHTML = `
+              <p>Current Temperature: ${temperature - 273.15}°C</p>
+              <p>Weather Description: ${description}</p>
+              <p>Precipitation: ${precipitation} mm</p>
+              <p>Humidity: ${humidity}%</p>
+              <p>Wind Speed: ${windSpeed} km/h</p>
+              <p>Wind Direction: ${windDirection}°</p>
+          `;
+      }
+
+      // Function to convert wind speed from m/s to km/h
+      function convertMetersPerSecondToKilometersPerHour(metersPerSecond) {
+        return (metersPerSecond * 3.6).toFixed(2); // 1 m/s = 3.6 km/h
+      }
+    </script>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Initialize the map
+        var map = L.map("map").setView([35.2335, 77.1097], 10); // Coordinates for Siachen Glacier
+
+        // Add OpenStreetMap as the base map layer
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          attribution: '© OpenStreetMap contributors',
+        }).addTo(map);
+
+        // Sample locations with different emergency levels
+        var locations = [
+          { coordinates: [35.2335, 77.1097], level: 'emergency', message: 'Emergency Location' },
+          { coordinates: [35.2350, 77.1120], level: 'good', message: 'Good Location' },
+          { coordinates: [35.2370, 77.1050], level: 'warning', message: 'Warning Location' },
+          { coordinates: [35.2380, 77.1080], level: 'emergency', message: 'Emergency Location' },
+          { coordinates: [35.2400, 77.1100], level: 'good', message: 'Good Location' },
+          { coordinates: [35.2340, 77.1070], level: 'warning', message: 'Warning Location' },
+          { coordinates: [35.2360, 77.1040], level: 'emergency', message: 'Emergency Location' },
+          { coordinates: [35.2390, 77.1110], level: 'good', message: 'Good Location' },
+          { coordinates: [35.2410, 77.1060], level: 'warning', message: 'Warning Location' },
+          { coordinates: [35.2420, 77.1090], level: 'emergency', message: 'Emergency Location' },
+        ];
+
+        // Define icon colors based on emergency levels
+        var iconColors = {
+          'emergency': 'red',
+          'good': 'green',
+          'warning': 'yellow',
+        };
+
+        locations.forEach(function (location) {
+          var marker = L.marker(location.coordinates, {
+            icon: L.divIcon({
+              className: 'custom-marker marker-' + iconColors[location.level],
+              iconSize: [30, 30],
+              iconAnchor: [15, 30]
+            })
+          }).addTo(map);
+
+          // Add tooltip to show information on hover
+          marker.bindTooltip(location.message, {
+            permanent: false,
+            direction: 'top',
+            opacity: 0.7
+          }).openTooltip();
+        });
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const locations = ["Location 1", "Location 2", "Location 3", "Location 4", "Location 5", "Location 6", "Location 7", "Location 8", "Location 9", "Location 10"];
+    
+        const dataSets = locations.map((location, index) => ({
+          label: location,
+          data: generateRandomData(),
+          borderColor: getRandomColor(),
+          borderWidth: 2,
+          fill: false,
+          hidden: index !== 0, // Initially, hide all datasets except the first one
+        }));
+    
+        const chartData = {
+          labels: Array.from({ length: 10 }, (_, i) => i + 1),
+          datasets: dataSets,
+        };
+    
+        const ctx = document.getElementById('avalancheGraph').getContext('2d');
+    
+        const chart = new Chart(ctx, {
+          type: 'line',
+          data: chartData,
+          options: {
+            scales: {
+              x: {
+                type: 'linear',
+                position: 'bottom',
+              },
+              y: {
+                min: 0,
+                max: 100,
+              },
+            },
+            plugins: {
+              tooltip: {
+                mode: 'index',
+                intersect: false,
+                callbacks: {
+                  label: (context) => {
+                    const dataset = chart.data.datasets[context.datasetIndex];
+                    const value = dataset.data[context.dataIndex];
+                    return `Location: ${dataset.label}, Value: ${value}`;
+                  },
+                },
+              },
+            },
+          },
+        });
+    
+        // Update data every 2 seconds
+        setInterval(() => {
+          chart.data.datasets.forEach(dataset => {
+            dataset.data = generateRandomData();
+          });
+          chart.update();
+        }, 2000);
+    
+        // Helper function to generate random data for demonstration
+        function generateRandomData() {
+          return Array.from({ length: 10 }, () => Math.floor(Math.random() * 100));
+        }
+    
+        // Helper function to generate a random color for the dataset
+        function getRandomColor() {
+          const letters = '0123456789ABCDEF';
+          let color = '#';
+          for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+          }
+          return color;
+        }
+      });
+    </script>
+    
+    <script src="homiee.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"></script>
+</body>
+
+</html>
