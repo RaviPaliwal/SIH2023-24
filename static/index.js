@@ -6,7 +6,7 @@
         function fetchWeatherData() {
           // Connect to the WebSocket
           // const socket = io.connect('https://7f4c-2409-4085-1089-c3e4-8050-a09b-2214-f63d.ngrok-free.app/');
-          const socket = io.connect(document.documentURI+":5000");
+          const socket = io.connect("http://localhost:5000");
       
           // Listen for the 'weather_data' event from the server
           socket.on('weather_data', function (weatherData) {
