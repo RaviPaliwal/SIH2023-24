@@ -11,14 +11,14 @@ app = Flask(__name__)
 CORS(app)
 socketio = SocketIO(app)
 
-# Load the trained machine learning model
+# Load the trained machine learning model just example model
 model = joblib.load('iris_model.pkl')
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/getlive')
+@app.route('/home')
 def getlive():
     return render_template('sensordatalive.html')    
 
@@ -59,13 +59,28 @@ def handle_disconnect():
 
 def generate_sensor_data():
     while True:
-        # Simulate sensor data (replace this with your actual sensor data logic)
-        sensor_data = random.uniform(0, 1)
+        # Simulate weather data
+        temperature = round(random.uniform(-30, 5), 2)  # Simulate temperature between -30 and 5 degrees Celsius
+        weather_description = 'overcast clouds'
+        precipitation = round(random.uniform(0, 5), 2)  # Simulate precipitation between 0 and 5 mm
+        humidity = round(random.uniform(0, 100), 2)  # Simulate humidity between 0% and 100%
+        wind_speed = round(random.uniform(0, 20), 2)  # Simulate wind speed between 0 and 20 km/h
+        wind_direction = round(random.uniform(0, 360), 2)  # Simulate wind direction between 0 and 360 degrees
         
-        # Send sensor data to connected clients via WebSocket
-        socketio.emit('sensor_data', sensor_data)
+        weather_data = {
+            'temperature': temperature,
+            'weather_description': weather_description,
+            'precipitation': precipitation,
+            'humidity': humidity,
+            'wind_speed': wind_speed,
+            'wind_direction': wind_direction,
+        }
         
-        time.sleep(1)  # Adjust the delay as needed
+        # Send weather data to connected clients via WebSocket
+        socketio.emit('weather_data', weather_data)
+        
+        time.sleep(2)  # Adjust the delay as needed
+
 
 if __name__ == '__main__':
     socketio.start_background_task(generate_sensor_data)

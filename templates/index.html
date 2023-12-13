@@ -7,7 +7,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Bootstrap CSS -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="static/index.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
@@ -16,559 +15,6 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
   <title>Avalanche Protec</title>
-  <style>
-    body{
-      display: flex;
-      flex-direction: column;
-      background:linear-gradient(to right,white,#c4e3fd,skyblue);
-    }
-
-    a.nav-link {
-      color: #343434;
-      text-decoration: none;
-      min-width: 80px;
-    }
-
-    a.nav-link.active {
-      color: #ffffff;
-      font-weight: bold
-    }
-
-    #scrollContent {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      width: 100%;
-      height: 100%;
-      white-space: nowrap;
-    }
-
-    #scrollContent>div {
-      display: flex;
-      animation: textScrollEffect 50s infinite linear;
-    }
-
-    @keyframes textScrollEffect {
-      0% {
-        transform: translateX(0%);
-      }
-
-      100% {
-        transform: translateX(-100%);
-      }
-
-    }
-
-    .container1 {
-      border-radius: 20px;
-      padding: 10px;
-      border: 2px solid blue;
-    }
-
-    .About {
-      width: 50%;
-      height: 100%;
-      background-color: aliceblue;
-      display: flex;
-      justify-content: flex-start;
-      margin-left: 20px;
-      margin-top: 20px;
-      border-radius: 20px;
-    }
-
-    .slider {
-      margin-top: 20px;
-      margin-left: 10px;
-      /* margin: 10px; */
-    }
-
-    .slider img {
-      border-radius: 20px;
-    }
-
-    .top {
-      display: flex;
-      flex-flow: row wrap;
-    }
-
-    .warning {
-      margin-top: 50px;
-      margin-left: 150px;
-      margin-bottom: 40px;
-      border-radius: 20px;
-      background: white;
-      height: 500px;
-      width: 400px;
-      overflow: hidden;
-      /* Ensure overflow doesn't show beyond box */
-    }
-
-    .top-part {
-      height: 15%;
-      background-color: rgb(51, 49, 49);
-      /* Color for the top part */
-    }
-
-    .slider {
-      position: relative;
-    }
-
-    .weather-section {
-      position: absolute;
-      top: 20px;
-      /* Adjust top positioning */
-      left: 20px;
-      /* Adjust left positioning */
-      color: white;
-      /* Set text color */
-      background-color: rgba(0, 0, 0, 0.7);
-      /* Set background color with transparency */
-      padding: 20px;
-      border-radius:20px;
-    }
-
-    .mid {
-      display: flex;
-      flex-direction: row;
-    }
-
-    .Mitigation {
-      margin-top: 10px;
-      margin-left: 10%;
-      margin-bottom: 40px;
-      border-radius: 20px;
-      background: rgb(206, 231, 255);
-      height: 600px;
-      width: 500px;
-      overflow: hidden;
-      padding-top: 10px;
-      padding-left: 40px;
-    }
-
-    .footer {
-      position: absolute;
-      left: 50px;
-      top: 800%;
-      display: inline-flex;
-      flex-direction: column;
-      flex-wrap: wrap;
-      width: 93%;
-
-    }
-
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap');
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
-
-    .contact {
-      position: relative;
-      min-height: 100vh;
-      padding: 50px 100px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      background: #222;
-    }
-
-    .contact .content {
-      max-width: 800px;
-      text-align: center;
-    }
-
-    .contact .content h2 {
-      font-size: 3em;
-      color: #fff;
-      font-weight: 500;
-    }
-
-    .contact .content p {
-      color: #fff;
-      font-size: 1.1em;
-      font-weight: 300;
-    }
-
-    .container {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 50px;
-      margin-top: 30px;
-    }
-
-    .container .contactInfo {
-      width: 50%;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .container .contactInfo .box {
-      position: relative;
-      padding: 20px 0;
-      display: flex;
-      cursor: pointer;
-    }
-
-    .container .contactInfo .box .icon {
-      min-width: 60px;
-      height: 60px;
-      background: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 1.75em;
-      transition: 0.5s;
-    }
-
-    .container .contactInfo .box:hover .icon {
-      background: #00bcd4;
-      color: #fff;
-    }
-
-    .container .contactInfo .box .text {
-      display: flex;
-      flex-direction: column;
-      margin-left: 20px;
-      font-size: 1.1em;
-      color: #fff;
-      font-weight: 300;
-    }
-
-    .container .contactInfo .box .text h3 {
-      font-weight: 500;
-      color: #00bcd4;
-    }
-
-    .container .contactInfo .txt {
-      color: #fff;
-      margin-top: 50px;
-      font-weight: 500;
-      padding-left: 10px;
-      border-left: 50px solid #e91e63;
-      line-height: 1em;
-    }
-
-    .sci {
-      position: relative;
-      display: flex;
-      gap: 30px;
-      margin: 20px 0;
-    }
-
-    .sci li {
-      list-style: none;
-    }
-
-    .sci li a {
-      color: #fff;
-      font-size: 2em;
-      transition: 0.5s;
-    }
-
-    .sci li a:hover {
-      color: #00bcd4;
-    }
-
-
-    .container .contactForm {
-      position: relative;
-      width: 40%;
-      background: #fff;
-      min-height: 100px;
-      padding: 60px;
-    }
-
-    .container .contactForm h2 {
-      font-size: 2em;
-      color: #333;
-      font-weight: 500;
-    }
-
-    .container .contactForm .inputBox {
-      position: relative;
-      width: 100%;
-      margin-top: 20px;
-    }
-
-    .container .contactForm .inputBox input,
-    .container .contactForm .inputBox textarea {
-      width: 100%;
-      padding: 5px 0;
-      font-size: 1.1em;
-      margin: 10px 0;
-      border: none;
-      border-bottom: 2px solid #333;
-      outline: none;
-      resize: none;
-    }
-
-    .container .contactForm .inputBox span {
-      position: absolute;
-      left: 0;
-      pointer-events: none;
-      padding: 5px 0;
-      margin: 10px 0;
-      font-size: 1.1em;
-      color: #666;
-      transition: 0.5s;
-    }
-
-    .container .contactForm .inputBox input:focus~span,
-    .container .contactForm .inputBox textarea:focus~span,
-    .container .contactForm .inputBox input:valid~span,
-    .container .contactForm .inputBox textarea:valid~span {
-      color: #e91e63;
-      font-size: 0.9em;
-      transform: translateY(-20px);
-    }
-
-    .container .contactForm .inputBox input[type="submit"] {
-      width: 100px;
-      background: #00bcd4;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-      padding: 10px;
-      font-size: 1.1em;
-      font-weight: 500;
-    }
-
-    @media (max-width: 991px) {
-      .contact {
-        padding: 50px;
-      }
-
-      .container {
-        flex-direction: column;
-      }
-
-      .container .contactInfo,
-      .container .contactForm {
-        width: 100%;
-      }
-
-      .container .contactForm {
-        padding: 50px 30px;
-      }
-    }
-
-    .map-container {
-      width: 100%;
-      height: 500px;
-      /* Use 100% of the viewport height */
-      margin: 20px 0;
-    }
-
-    .custom-marker {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      border: 2px solid #fff;
-      transition: background-color 0.3s ease-in-out;
-    }
-
-    .marker-red {
-      background-color: red;
-    }
-
-    .marker-green {
-      background-color: green;
-    }
-
-    .marker-yellow {
-      background-color: yellow;
-    }
-
-    .custom-marker:hover {
-      background-color: #ccc;
-      /* Change the color on hover */
-    }
-
-    #map {
-
-      height: 80vh;
-      width: 150vh;
-      position: absolute;
-      top: 280%;
-      left: 15%;
-      border-radius: 20px;
-      border: 2px blue solid;
-    }
-
-    .don-box {
-      background-color: whitesmoke;
-      overflow: hidden;
-      border-radius: 20px;
-      width: 100%;
-      height: 250px;
-      position: absolute;
-      top: 384%;
-    }
-
-    .don-box-top {
-      background-color: rgb(1, 1, 94);
-      color: white;
-      display: flex;
-      flex-direction: row;
-      padding: 10px;
-      justify-content: space-evenly;
-      width: 100%;
-      height: 50px;
-      text-align: center;
-      position: relative;
-      top: 0;
-      left: 0;
-    }
-
-    .don-box-top i {
-      margin-top: 10px;
-    }
-
-    .one-time {
-      border: 2px solid blue;
-      position: absolute;
-      top: 935px;
-      left: 25px;
-      padding: 5px;
-      border-radius: 5px;
-      text-align: center;
-      font-size: 1.2em;
-      color: rgb(1, 1, 94);
-      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 50px;
-      width: 110px;
-      transition: transform 0.3s ease-in-out;
-    }
-
-    .monthly {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 50px;
-      width: 110px;
-      background-color: rgb(1, 1, 94);
-      position: absolute;
-      top: 935px;
-      left: 10%;
-      padding: 5px;
-      border-radius: 5px;
-      text-align: center;
-      font-size: 1.2em;
-      color: white;
-      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-      transition: transform 0.3s ease-in-out;
-    }
-
-    .one-time:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    .monthly:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    .don-box-top i {
-      transition: transform 0.3s ease-in-out;
-    }
-
-    .don-box-top i:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    .amount-box:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      border: 2px solid blue;
-    }
-
-    .amount1 {
-      position: absolute;
-      top: 2535px;
-      left: 23%;
-    }
-
-    .amount2 {
-      position: absolute;
-      top: 2535px;
-      left: 48.5%;
-    }
-
-    .amount-box {
-      border: 2px solid rgb(176, 176, 209);
-      border-radius: 8px;
-      height: 50px;
-      width: 100px;
-      display: inline-block;
-      text-align: center;
-      line-height: 50px;
-      margin: 5px;
-      transition: transform 0.3s ease-in-out;
-    }
-
-    .amount {
-      position: absolute;
-      top: 2555px;
-      left: 75%;
-      height: 30px;
-      width: 300px;
-      border-radius: 5px;
-      border: 2px solid rgb(176, 176, 209);
-    }
-    .amount:hover{
-      border: 2px solid blue;
-    }
-
-    #next {
-      position: absolute;
-      top: 2600px;
-      left: 35%;
-      text-align: center;
-      font-size: 2em;
-      background-color: blue;
-      height: 50px;
-      width: 300px;
-      color: white;
-      border-radius: 10px;
-      border: 0px;
-      transition: transform 0.3s ease-in-out;
-    }
-
-    #next:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-      background-color: rgb(122, 122, 248);
-    }
-
-    .container3 {
-      position: relative;
-      top: 50px;
-    }
-    .chart{
-      background-color: white;
-      position: absolute;
-      top: 2800px;
-      left: 200px;
-      display: flex;
-      align-self: center;
-    }
-    #subNavContainer{
-      display: flex;
-      justify-content: space-evenly;
-    }
-
-  </style>
 </head>
 
 <body>
@@ -631,12 +77,12 @@
           Experts advise extreme caution; avoid non-essential travel.
           Ski resorts and remote areas face heightened avalanche threats.
           Stay informed with real-time updates from local authorities.
-          "</div>
+          "
+        </div>
       </div>
     </div>
   </div>
   </div>
-</div>
   <br><br>
   <div class="top">
     <div class="About">
@@ -864,60 +310,44 @@
         </div>
       </section>
     </div>
-      
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>  
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         // Fetch weather data from the API
         fetchWeatherData();
       });
-
+    
       function fetchWeatherData() {
-        // Replace 'YOUR_API_KEY' with your actual API key from OpenWeatherMap
-        const apiKey = 'b6441e6ed7469cf707b705761376802f';
-        const location = 'Siachen,IN'; // Replace with the specific location
-
-        // Use a weather API (for example, OpenWeatherMap API)
-        const apiUrl = "https://api.openweathermap.org/data/2.5/weather?lat=35.421226&lon=77.109540&appid=b6441e6ed7469cf707b705761376802f";
-
-        fetch(apiUrl)
-          .then((response) => {
-            if (!response.ok) {
-              throw new Error("HTTP error! Status: ${response.status}");
-            }
-            return response.json();
-          })
-          .then((data) => {
-            // Handle the retrieved weather data
-            displayWeatherData(data);
-          })
-          .catch((error) => console.error("Error fetching weather data:", error));
+        // Connect to the WebSocket
+        const socket = io.connect('http://' + document.domain + ':' + location.port);
+    
+        // Listen for the 'weather_data' event from the server
+        socket.on('weather_data', function (weatherData) {
+          // Handle the received weather data
+          displayWeatherData(weatherData);
+        });
       }
-
+    
       function displayWeatherData(data) {
         const weatherBoardcastElement = document.getElementById('weather-boardcast');
-
+    
         // Extract relevant weather information from the data
-        const temperature = data.main.temp;
-        const description = data.weather[0].description;
-        const precipitation = data.rain ? (data.rain['1h'] || 0) : 0; // Precipitation in the last 1 hour (if available)
-        const humidity = data.main.humidity;
-        const windSpeed = convertMetersPerSecondToKilometersPerHour(data.wind.speed);
-        const windDirection = data.wind.deg;
-
+        const temperature = data.temperature;
+        const description = data.weather_description;
+        const precipitation = data.precipitation;
+        const humidity = data.humidity;
+        const windSpeed = data.wind_speed;
+        const windDirection = data.wind_direction;
+    
         // Update the weather broadcast element
         weatherBoardcastElement.innerHTML = `
-              <p>Current Temperature: ${temperature - 273.15}°C</p>
-              <p>Weather Description: ${description}</p>
-              <p>Precipitation: ${precipitation} mm</p>
-              <p>Humidity: ${humidity}%</p>
-              <p>Wind Speed: ${windSpeed} km/h</p>
-              <p>Wind Direction: ${windDirection}°</p>
-          `;
-      }
-
-      // Function to convert wind speed from m/s to km/h
-      function convertMetersPerSecondToKilometersPerHour(metersPerSecond) {
-        return (metersPerSecond * 3.6).toFixed(2); // 1 m/s = 3.6 km/h
+            <p>Current Temperature: ${temperature}°C</p>
+            <p>Weather Description: ${description}</p>
+            <p>Precipitation: ${precipitation} mm</p>
+            <p>Humidity: ${humidity}%</p>
+            <p>Wind Speed: ${windSpeed} km/h</p>
+            <p>Wind Direction: ${windDirection}°</p>
+        `;
       }
     </script>
 
@@ -1055,7 +485,6 @@
       });
     </script>
     
-    <script src="homiee.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
