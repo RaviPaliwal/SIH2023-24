@@ -49,4 +49,62 @@ document.addEventListener('DOMContentLoaded', function () {
           <p>Wind Direction: ${windDirection}°</p>
       `;
   }
+
+
+    // Initialize the map
+  var map = L.map("map");
+
+  // Add OpenStreetMap as the base map layer
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: '© OpenStreetMap contributors',
+  }).addTo(map);
+
+  // Attempt to get the user's current location
+  navigator.geolocation.getCurrentPosition(
+    function (position) {
+      // If successful, center the map around the user's location
+      var userLocation = [position.coords.latitude, position.coords.longitude];
+      map.setView(userLocation, 11);
+
+      // Sample locations with different emergency levels
+      var locations = [
+        { coordinates: [32.6599, 77.2494], level: 'emergency', message: 'Avalanche in Himachal Pradesh' },
+        { coordinates: [34.1526, 77.5771], level: 'warning', message: 'Possible Avalanche in Jammu and Kashmir' },
+        { coordinates: [35.3191, 78.5665], level: 'good', message: 'Safe Zone in Ladakh' },
+        { coordinates: [30.8827, 77.6110], level: 'emergency', message: 'Urgent Alert in Uttarakhand' },
+        { coordinates: [33.7782, 76.5762], level: 'warning', message: 'Potential Danger in Punjab' },
+        { coordinates: [31.1471, 77.1089], level: 'good', message: 'No Threat in Himachal Pradesh' },
+      ];
+
+      // Define icon colors based on emergency levels
+      var iconColors = {
+        'emergency': 'red',
+        'good': 'green',
+        'warning': 'yellow',
+      };
+
+      locations.forEach(function (location) {
+        var marker = L.marker(location.coordinates, {
+          icon: L.divIcon({
+            className: 'custom-marker marker-' + iconColors[location.level],
+            iconSize: [30, 30],
+            iconAnchor: [15, 30]
+          })
+        }).addTo(map);
+
+        // Add tooltip to show information on hover
+        marker.bindTooltip(location.message, {
+          permanent: true,
+          direction: 'top',
+          opacity: 0.7
+        }).openTooltip();
+      });
+    },
+    function (error) {
+      // Handle errors if geolocation is not supported or permission is denied
+      console.error('Error getting user location:', error.message);
+      map.setView([32.6599, 77.2494, 10]);
+    }
+  );
+
 });

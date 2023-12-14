@@ -42,9 +42,16 @@ body{
 }
 
 .map{
-
+  background: linear-gradient(132deg, rgb(251, 165, 116) 0.00%, rgb(34, 181, 254)100.00%);
+  height: 350px;
+  border: 2px solid rgb(212, 206, 169) ;
+  border-right-color: #0f83ca;
 }
 
 .emptyfornow{
   background: linear-gradient(132deg, rgb(251, 165, 116) 0.00%, rgb(216, 245, 251) 100.00%);
 }
+
+/* Animations */
+
+div:hover{}

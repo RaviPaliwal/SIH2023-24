@@ -18,6 +18,8 @@
 
     <!-- Other Css -->
     <link rel="stylesheet" href="static/style.css" />
+    <!-- Include Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
 
     <title>Avalanche Protec</title>
   </head>
@@ -170,15 +172,17 @@
 
   <!-- Area Map and Other  -->
   <div class="mapsectionparent d-flex mt-3 justify-content-around">
-    <div class="map bg-info rounded col-7">
-      Hello Me Hun Map
+    <div id="map" class="map bg-info rounded-lg col-7">
+      Area Map
     </div>
     <div class="emptyfornow bg-success rounded col-4">
-      Other
+      <h5 class="text-center">Other</h5>
     </div>
   </div>
 
     <!-- Optional JavaScript -->
+    <!-- Include Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
     <!-- Io For Socket -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>
