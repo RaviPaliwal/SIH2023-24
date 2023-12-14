@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
   // Connect to the SocketIO server
-  const socket = io.connect('http://' + document.domain + ':' + location.port);
+  const socket = io.connect('https://' + document.domain + ':' + location.port);
 
   // Update Sensor 1 data
   socket.on('sensor1_data', function (data) {
