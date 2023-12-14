@@ -18,36 +18,10 @@ model = joblib.load('iris_model.pkl')
 def index():
     return render_template('index.html')
 
-@app.route('/home')
+@app.route('/old')
 def getlive():
-    return render_template('sensordatalive.html')    
+    return render_template('indexold.html')    
 
-@app.route('/predict', methods=['POST'])
-def predict():
-    warnings.filterwarnings("ignore")
-    try:
-        data = request.get_json()
-        features = [float(data['sepal_length']), float(data['sepal_width']), float(data['petal_length']), float(data['petal_width'])]
-        print(features)
-        
-        input_features = np.array(features).reshape(1, -1)
-        prediction = model.predict(input_features)
-
-        # Ensure the prediction is a serializable data type (e.g., int or float)
-        class_labels = {
-            0: 'Setosa',
-            1: 'Versicolor',
-            2: 'Virginica'
-        }   
-        prediction = int(prediction[0])  # Convert to float
-        prediction = class_labels[prediction]
-
-        # Send prediction to connected clients via WebSocket
-        socketio.emit('prediction', prediction)
-
-        return prediction
-    except Exception as e:
-        return jsonify(str(e))
 
 @socketio.on('connect')
 def handle_connect():
@@ -81,7 +55,62 @@ def generate_sensor_data():
         
         time.sleep(2)  # Adjust the delay as needed
 
+def generate_sensor_data2():
+    while True:
+        # Simulate sensor data
+        sensor1_data = {
+            'tilt': round(random.uniform(0, 30), 2),  # Simulate tilt between 0 and 30 degrees
+            'acceleration': round(random.uniform(0, 10), 2),  # Simulate acceleration between 0 and 10 m/s²
+        }
+
+        sensor2_data = {
+            'tilt': round(random.uniform(0, 30), 2),  # Simulate tilt between 0 and 30 degrees
+            'acceleration': round(random.uniform(0, 10), 2),  # Simulate acceleration between 0 and 10 m/s²
+        }
+
+        # Send sensor data to connected clients via WebSocket
+        socketio.emit('sensor1_data', sensor1_data)
+        socketio.emit('sensor2_data', sensor2_data)
+
+        time.sleep(3)  # Adjust the delay as needed
+
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    warnings.filterwarnings("ignore")
+    try:
+        data = request.get_json()
+        features = [float(data['sepal_length']), float(data['sepal_width']), float(data['petal_length']), float(data['petal_width'])]
+        print(features)
+        
+        input_features = np.array(features).reshape(1, -1)
+        prediction = model.predict(input_features)
+
+        # Ensure the prediction is a serializable data type (e.g., int or float)
+        class_labels = {
+            0: 'Setosa',
+            1: 'Versicolor',
+            2: 'Virginica'
+        }   
+        prediction = int(prediction[0])  # Convert to float
+        prediction = class_labels[prediction]
+
+        # Send prediction to connected clients via WebSocket
+        socketio.emit('prediction', prediction)
+
+        return prediction
+    except Exception as e:
+        return jsonify(str(e))
+
+
+
+
+
+
+
+
 
 if __name__ == '__main__':
     socketio.start_background_task(generate_sensor_data)
+    socketio.start_background_task(generate_sensor_data2)
     socketio.run(app, debug=True)
