@@ -35,7 +35,7 @@ def generate_sensor_data():
     while True:
         # Simulate weather data
         temperature = round(random.uniform(-30, 5), 2)  # Simulate temperature between -30 and 5 degrees Celsius
-        weather_description = 'overcast clouds'
+        weather_description = np.random.choice(['Overcast clouds', 'Clear sky', 'Snowfall'])
         precipitation = round(random.uniform(0, 5), 2)  # Simulate precipitation between 0 and 5 mm
         humidity = round(random.uniform(0, 100), 2)  # Simulate humidity between 0% and 100%
         wind_speed = round(random.uniform(0, 20), 2)  # Simulate wind speed between 0 and 20 km/h

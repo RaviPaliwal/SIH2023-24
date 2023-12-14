@@ -94,10 +94,10 @@
 
     <!-- Updates Section -->
     <div class="shadow-lg d-flex justify-content-center align-items-center">
-      <div class="py-1 col-2 text-center bg-danger text-white rounded">
-        <h6>Updates</h6>
+      <div class="pb-2 d-flex justify-content-center py-1 col-2 bg-danger text-white rounded">
+        <h6 class="" >Updates</h6>
       </div>
-      <div class="col-10 py-1 rounded " style="overflow: hidden; background-color: #97d2fb;">
+      <div class=" col-10 py-1 rounded " style="overflow: hidden; background-color: #97d2fb;">
         <marquee behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
           <div class="d-flex align-items-center" style="font-weight: 500; color: #000;">
               Urgent Alert: High Avalanche Risk in Colorado's Rocky Mountains!
@@ -178,6 +178,14 @@
       <h5 class="text-center">Other</h5>
     </div>
   </div>
+  
+  <div class="charts d-flex mt-4 justify-content-around">
+
+    <canvas class="tiltChart col-5  rounded "  id="tiltChart"  height="auto"></canvas>
+    <canvas class="accelerationChart col-5 rounded "  id="accelerationChart" height="auto"></canvas>
+  </div>
+
+
 
     <!-- Optional JavaScript -->
     <!-- Include Leaflet JavaScript -->
@@ -188,6 +196,9 @@
 
     <!-- My JS File -->
     <script src="static/index.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script
@@ -205,6 +216,7 @@
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"
     ></script>
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+   
+    
   </body>
 </html>

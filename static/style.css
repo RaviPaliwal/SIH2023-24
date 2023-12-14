@@ -33,6 +33,12 @@ body{
     margin-right: auto;
     width: 90%;
 }
+
+.serverdata p:hover{
+  transform: scale(1.2);
+  transform: perspective(-10,15,45);
+  color: rgb(20, 54, 58);
+}
 .sensor1{
     background: linear-gradient(132deg, rgb(249, 202, 120) 0.00%, rgb(212, 206, 169) 50.00%, rgb(172, 192, 191) 100.00%);
 }
@@ -44,14 +50,18 @@ body{
 .map{
   background: linear-gradient(132deg, rgb(251, 165, 116) 0.00%, rgb(34, 181, 254)100.00%);
   height: 350px;
-  border: 2px solid rgb(212, 206, 169) ;
-  border-right-color: #0f83ca;
+  border: 2px solid rgb(97, 89, 37) ;
 }
 
 .emptyfornow{
   background: linear-gradient(132deg, rgb(251, 165, 116) 0.00%, rgb(216, 245, 251) 100.00%);
 }
 
-/* Animations */
+.tiltChart{
+  background: linear-gradient(132deg, rgb(34, 181, 254) 0.00%, rgb(255, 186, 214) 100.00%);
+}
 
-div:hover{}
+.accelerationChart{
+  background: linear-gradient(132deg, rgb(251, 165, 116)  0.00%, rgb(255, 186, 214) 100.00%);
+}
+
