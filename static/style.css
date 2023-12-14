@@ -3,34 +3,13 @@ body{
     flex-direction: column;
     background:linear-gradient(to right,white,#c4e3fd,skyblue);
   }
-
+.navbar-brand img{
+ height: 60px;;
+}
 .nav-item a{
+  color: #0f83ca !important;
 }
 
-#scrollContent {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    white-space: nowrap;
-  }
-
-#scrollContent>div {
-    display: flex;
-    animation: textScrollEffect 50s infinite linear;
-  }
-
-  @keyframes textScrollEffect {
-    0% {
-      transform: translateX(0%);
-    }
-
-    100% {
-      transform: translateX(-100%);
-    }
-
-  }
 .predictiondata{
     background: linear-gradient(132deg, rgb(34, 181, 254) 0.00%, rgb(255, 186, 214) 100.00%);
 }  
@@ -50,4 +29,12 @@ body{
 .sensor2{
     background: linear-gradient(132deg, rgb(3, 148, 108) 0.00%, rgb(33, 35, 34) 100.00%);
     background: linear-gradient(132deg, rgb(34, 181, 254) 0.00%, rgb(255, 186, 214) 100.00%);
+}
+
+.map{
+
+}
+
+.emptyfornow{
+  background: linear-gradient(132deg, rgb(251, 165, 116) 0.00%, rgb(216, 245, 251) 100.00%);
 }
