@@ -10,6 +10,16 @@ body{
   color: #0f83ca !important;
 }
 
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+    outline: none;
+    box-shadow: none;
+}
+.navbar-toggler{
+  border: none !important;
+}
+
 .predictiondata{
     background: linear-gradient(132deg, rgb(34, 181, 254) 0.00%, rgb(255, 186, 214) 100.00%);
 }  
