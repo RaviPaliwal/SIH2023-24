@@ -1,95 +1,66 @@
 body{
-    display: flex;
-    flex-direction: column;
-    /* background:linear-gradient(to right,white,#c4e3fd,skyblue); */
-    background: white;
-  }
+  display: flex;
+  flex-direction: column;
+  background:linear-gradient(to right,white,#c4e3fd,skyblue);
+}
 .navbar-brand img{
- height: 60px;;
+height: 60px;;
 }
 .nav-item a{
-  color: #0f83ca !important;
-  font-size: 1.5em;
+color: #0f83ca !important;
 }
 
 .navbar-toggler:focus,
 .navbar-toggler:active,
 .navbar-toggler-icon:focus {
-    outline: none;
-    box-shadow: none;
+  outline: none;
+  box-shadow: none;
 }
 .navbar-toggler{
-  border: none !important;
+border: none !important;
 }
 
 .predictiondata{
-    /* background: linear-gradient(132deg, rgb(34, 181, 254) 0.00%, rgb(255, 186, 214) 100.00%); */
-    background: rgb(208, 226, 247);
-    font-size: 1.5em;
+  background: linear-gradient(132deg, rgb(34, 181, 254) 0.00%, rgb(255, 186, 214) 100.00%);
 }  
 .warninglocations{
-    background: linear-gradient(159deg, rgb(255, 53, 53) 0.00%, rgb(238, 102, 102) 100.00%);
-    
-}
-.warninglocations li{
-  font-size: 1.5em;
-  font-weight: 500;
-  color: white;
+  background: linear-gradient(132deg, rgb(255, 127, 56) 0.00%, rgb(255, 196, 108) 100.00%);
+  
 }
 .serverdata{
-    /* background: linear-gradient(132deg, rgb(255, 206, 236) 0.00%, rgb(151, 150, 240) 100.00%); */
-    background: rgb(179, 233, 255);
-    margin-left: auto;
-    margin-right: auto;
-    width: 70%;
-    font-size: 1.5em;
-    font-weight: 400;
+  background: linear-gradient(132deg, rgb(255, 206, 236) 0.00%, rgb(151, 150, 240) 100.00%);
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+}
 
-}
-.serverdata h4{
-  font-size: 1.5em;
-}
 .serverdata p:hover{
-  transform: scale(1.2);
-  transform: perspective(-10,15,45);
-  color: rgb(0, 47, 255);
+transform: scale(1.2);
+transform: perspective(-10,15,45);
+color: rgb(20, 54, 58);
 }
 .sensor1{
-    /* background: linear-gradient(132deg, rgb(249, 202, 120) 0.00%, rgb(212, 206, 169) 50.00%, rgb(172, 192, 191) 100.00%); */
-    background-color: #a4b6c2;
-    font-size: 1.5em;
-    font-weight: 400;
+  background: linear-gradient(132deg, rgb(249, 202, 120) 0.00%, rgb(212, 206, 169) 50.00%, rgb(172, 192, 191) 100.00%);
 }
 .sensor2{
-    /* background: linear-gradient(132deg, rgb(3, 148, 108) 0.00%, rgb(33, 35, 34) 100.00%);
-    background: linear-gradient(132deg, rgb(34, 181, 254) 0.00%, rgb(255, 186, 214) 100.00%); */
-    background-color: #a4b6c2;
-    font-size: 1.5em;
-    font-weight: 400;
-}
-
-.map{
-  background: linear-gradient(132deg, rgb(251, 165, 116) 0.00%, rgb(34, 181, 254)100.00%);
-  height: 350px;
-  border: 2px solid rgb(97, 89, 37) ;
-}
-
-.location{
-  background: linear-gradient(132deg, rgb(251, 165, 116) 0.00%, rgb(216, 245, 251) 100.00%);
-}
-
-.tiltChart{
+  background: linear-gradient(132deg, rgb(3, 148, 108) 0.00%, rgb(33, 35, 34) 100.00%);
   background: linear-gradient(132deg, rgb(34, 181, 254) 0.00%, rgb(255, 186, 214) 100.00%);
 }
 
-.accelerationChart{
-  background: linear-gradient(132deg, rgb(251, 165, 116)  0.00%, rgb(255, 186, 214) 100.00%);
+.map{
+background: linear-gradient(132deg, rgb(251, 165, 116) 0.00%, rgb(34, 181, 254)100.00%);
+height: 350px;
+border: 2px solid rgb(97, 89, 37) ;
 }
-#footer {
-  background-color: #3498db; /* Blue background for footer */
-  color: #fff;
-  margin-top: 5px;
-  text-align: center;
-  padding: 15px;
-  width: 100%;
+
+.emptyfornow{
+background: linear-gradient(132deg, rgb(251, 165, 116) 0.00%, rgb(216, 245, 251) 100.00%);
+}
+
+.tiltChart{
+background: linear-gradient(132deg, rgb(34, 181, 254) 0.00%, rgb(255, 186, 214) 100.00%);
+}
+
+.accelerationChart{
+background: linear-gradient(132deg, rgb(251, 165, 116)  0.00%, rgb(255, 186, 214) 100.00%);
 }

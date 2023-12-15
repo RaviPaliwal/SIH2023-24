@@ -249,31 +249,4 @@ document.addEventListener("DOMContentLoaded", function () {
       map.setView([32.6599, 77.2494, 10]);
     }
   );
-  function getUserLocation() {
-    navigator.geolocation.getCurrentPosition(
-      function (position) {
-        // Retrieve latitude and longitude
-        var latitude = position.coords.latitude;
-        var longitude = position.coords.longitude;
-
-        // Create a string with the coordinates
-        var coordinates = '<strong>Latitude:</strong> ' + latitude + '<strong><br>Longitude: </strong>' + longitude;
-
-        // Get the gdata div
-        var gdataDiv = document.getElementById('gdata');
-
-        // Create a new div to hold the coordinates
-        var coordinatesDiv = document.createElement('loc');
-        coordinatesDiv.innerHTML = coordinates;
-
-        // Append the coordinates div below the geographical data div
-        gdataDiv.appendChild(coordinatesDiv);
-      },
-      function (error) {
-        // Handle errors if geolocation is not supported or permission is denied
-        console.error("Error getting user location:", error.message);
-      }
-      );
-  }
-  getUserLocation();
 });
