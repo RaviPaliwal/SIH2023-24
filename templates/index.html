@@ -94,8 +94,8 @@
 
     <!-- Updates Section -->
     <div class="shadow-lg d-flex justify-content-center align-items-center">
-      <div class="pb-2 d-flex justify-content-center py-1 col-2 bg-danger text-white rounded">
-        <h6 class="" >Updates</h6>
+      <div class="pb-2 pt-2 d-flex justify-content-center py-1 col-2 bg-danger text-white rounded">
+        <h6 style="font-size: 1.2em;" >Updates</h6>
       </div>
       <div class=" col-10 py-1 rounded " style="overflow: hidden; background-color: #97d2fb;">
         <marquee behavior="scroll" direction="left" onmouseover="this.stop();" onmouseout="this.start();">
@@ -117,7 +117,7 @@
     <!-- Prediction + Warning Locations Card -->
     <div class="d-flex mt-3 justify-content-center">
       <!-- Prediction Data Card -->
-      <div class="predictiondata col-6 bg-gradient rounded p-2">
+      <div class="predictiondata col-5 bg-gradient rounded p-2">
         <h4 class="text-center">Prediction Data</h4>
         <div class="card-body">
           <h5 class="card-title">Alert</h5>
@@ -148,7 +148,7 @@
 
     <!-- Server Data -->
     <div class="serverdata d-flex mt-3 p-3 rounded">
-      <div id="weather-boardcast" class="mx-auto text-center">
+      <div id="weather-boardcast" class="mx-auto col-3 text-center">
         <h4>Server Data</h4>
       </div>
     </div>
@@ -156,13 +156,13 @@
     <!-- Tilt and Acceleration Data -->
   <div class="mt-4 mx-3 sensordata_main_div d-flex justify-content-around">
     <div class="rounded sensor1 col-5">
-      <h5 class="text-center mb-3">Sensor 1 Data</h5>
+      <h5 class="text-center mb-3 mt-3 " style="font-size: 1.5em;">Sensor 1 Data</h5>
       <p class="tilt">Loading...</p>
       <p class="acceleration">Loading...</p>
       <!-- Add more data points as needed -->
     </div>
     <div class="rounded sensor2 col-5">
-      <h5 class="text-center mb-3">Sensor 2 Data</h5>
+      <h5 class="text-center mb-3 mt-3" style="font-size: 1.5em;">Sensor 2 Data</h5>
       <p class="tilt">Loading...</p>
       <p class="acceleration">Loading...</p>
       <!-- Add more data points as needed -->
@@ -174,9 +174,11 @@
     <div id="map" class="map bg-info rounded-lg col-7">
       Area Map
     </div>
-    <div class="emptyfornow bg-success rounded col-4">
-      <h5 class="text-center">Other</h5>
+    <div class="location bg-success rounded col-2" id="gdata">
+      <h5 class="text-center mt-3">GEOGRAPHICAL DATA</h5>
+      <div class="loc"></div>
     </div>
+
   </div>
   
   <div class="charts d-flex mt-4 justify-content-around">
@@ -184,7 +186,8 @@
     <canvas class="tiltChart col-5  rounded "  id="tiltChart"  height="auto"></canvas>
     <canvas class="accelerationChart col-5 rounded "  id="accelerationChart" height="auto"></canvas>
   </div>
-
+  <br><br>
+  <div id="footer">© 2023 AvalancheProtec</div>
 
 
     <!-- Optional JavaScript -->
