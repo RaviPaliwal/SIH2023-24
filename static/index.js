@@ -11,6 +11,14 @@ document.addEventListener("DOMContentLoaded", function () {
   let AccelerationS1 = new Array();
   let AccelerationS2 = new Array();
 
+  const UpdationWithConstraint = (arr, element, size) => {
+    if (arr.length + 1 > size) {
+      arr.shift(); // Remove the first element if size is exceeded
+    }
+    arr.push(element); // Add the new element to the array
+    return arr;
+  };
+
   const chartData = {
     labels: [],
     datasets: [
@@ -59,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
       },
       y: {
         min: 0,
-        max: 100,
+        max: 50,
       },
     },
   };
@@ -72,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
       },
       y: {
         min: -15,
-        max: 45,
+        max: 30,
       },
     },
   };
@@ -107,8 +115,8 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   socket.on("sensor1_data", function (data) {
-    TiltS1.push(data.tilt);
-    AccelerationS1.push(data.acceleration);
+    UpdationWithConstraint(TiltS1,data.tilt,15)
+    UpdationWithConstraint(AccelerationS1,data.acceleration,15)
     updateChartData();
     updateChart2Data();
     document.querySelector(
@@ -120,8 +128,8 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   socket.on("sensor2_data", function (data) {
-    TiltS2.push(data.tilt);
-    AccelerationS2.push(data.acceleration);
+    UpdationWithConstraint(TiltS2,data.tilt,15)
+    UpdationWithConstraint(AccelerationS2,data.acceleration,15)
     updateChartData();
     updateChart2Data();
     document.querySelector(

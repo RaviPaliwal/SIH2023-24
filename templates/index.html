@@ -115,9 +115,9 @@
     <h1 class="text-center text-primary mt-3">Monitoring Dashboard</h1>
 
     <!-- Prediction + Warning Locations Card -->
-    <div class="d-flex mt-3 justify-content-center">
+    <div class="d-flex justify-content-center flex-wrap">
       <!-- Prediction Data Card -->
-      <div class="predictiondata col-6 bg-gradient rounded p-2">
+      <div class="predictiondata mt-3 col-11 col-sm-11 col-md-6 bg-gradient rounded p-2">
         <h4 class="text-center">Prediction Data</h4>
         <div class="card-body">
           <h5 class="card-title">Alert</h5>
@@ -134,7 +134,7 @@
 
       <!-- Warning Locations -->
       <div
-        class="mx-3 col-5 warninglocations bg-info p-2 rounded bg-opacity-10"
+        class="mx-3 mt-3 col-11 col-sm-11 col-md-5 warninglocations bg-info p-2 rounded bg-opacity-10"
       >
         <h4 class="text-center text-white mb-4">Warning Locations</h4>
         <ul class="list-group list-group-flush">
@@ -154,14 +154,14 @@
     </div>
 
     <!-- Tilt and Acceleration Data -->
-  <div class="mt-4 mx-3 sensordata_main_div d-flex justify-content-around">
-    <div class="rounded sensor1 col-5">
+  <div class="mx-3 sensordata_main_div d-flex justify-content-around flex-wrap">
+    <div class="rounded sensor1 mt-4 col-11 col-sm-11 col-md-5">
       <h5 class="text-center mb-3">Sensor 1 Data</h5>
       <p class="tilt">Loading...</p>
       <p class="acceleration">Loading...</p>
       <!-- Add more data points as needed -->
     </div>
-    <div class="rounded sensor2 col-5">
+    <div class="rounded sensor2 mt-4 col-11 col-sm-11 col-md-5">
       <h5 class="text-center mb-3">Sensor 2 Data</h5>
       <p class="tilt">Loading...</p>
       <p class="acceleration">Loading...</p>
@@ -170,20 +170,45 @@
   </div>
 
   <!-- Area Map and Other  -->
-  <div class="mapsectionparent d-flex mt-3 justify-content-around">
-    <div id="map" class="map bg-info rounded-lg col-7">
-      Area Map
+  <div class="mapsectionparent d-flex  justify-content-around align-items-center flex-wrap">
+    <div class="d-flex mt-3 flex-column col-11 col-sm-11 col-md-7">
+      <h5 class="text-center text-success">Area Map</h5>
+      <div id="map" class="map rounded-lg text-center w-100">
+        Area Map
+      </div>
     </div>
-    <div class="emptyfornow bg-success rounded col-4">
-      <h5 class="text-center">Other</h5>
+    
+    <div class="emptyfornow mt-3 rounded overflow-scroll h-auto col-11 col-sm-11 col-md-4">
+      <h6 class="text-center pt-2 text-danger">Avalanche Safety Tips</h6>
+      <ul class="safetyTips">
+        <li>Check the avalanche forecast regularly.</li>
+        <li>Carry essential avalanche safety gear: beacon, probe, and shovel.</li>
+        <li>Travel with a buddy, never alone.</li>
+        <li>Attend avalanche safety courses for proper training.</li>
+        <li>Know how to use your safety equipment effectively.</li>
+        <li>Avoid traveling on or under steep slopes when avalanche danger is high.</li>
+        <li>Communicate and share your plans with someone who is not on the trip.</li>
+        <li>Stay informed about weather and snow conditions.</li>
+        <li>Trust your instincts; if something doesn't feel right, turn back.</li>
+        <li>Practice safe route-finding and terrain management.</li>
+      </ul>
     </div>
+    
   </div>
   
-  <div class="charts d-flex mt-4 justify-content-around">
-
-    <canvas class="tiltChart col-5  rounded "  id="tiltChart"  height="auto"></canvas>
-    <canvas class="accelerationChart col-5 rounded "  id="accelerationChart" height="auto"></canvas>
+  <!-- Graphs of Tilts and Accelerations -->
+  <div class="charts d-flex justify-content-around h-auto flex-wrap">
+    <canvas class="tiltChart mt-4  rounded col-11 col-sm-11 col-md-5 "  id="tiltChart"  height="auto"></canvas>
+    <canvas class="accelerationChart mt-4  rounded col-11 col-sm-11 col-md-5 mb-5"  id="accelerationChart" height="auto"></canvas>
   </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="p-4 container-fluid text-center shadow-lg">
+      <p>Contact: avalancheprotec@gmail.com</p>
+      <p>&copy; 2023-24 Avalanche Protec. All rights reserved.</p>
+    </div>
+  </footer>
 
 
 
