@@ -267,5 +267,9 @@ document.addEventListener("DOMContentLoaded", function () {
       var img = document.querySelector(".wimg");
       img.src = "/static/warning.png";
     }
+    else{
+      var img = document.querySelector(".wimg");
+      img.src = "/static/safe.png";
+    }
   });
 });
