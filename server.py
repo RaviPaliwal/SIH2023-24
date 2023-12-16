@@ -90,7 +90,11 @@ def generate_sensor_data():
             "wind direction": wind_direction,
         }
         
-        response = requests.post('http://localhost:5000/predictavalanche', json=data)
+        try:
+            response = requests.post('http://127.0.0.1:5000/predictavalanche', json=data)
+        except Exception as e:
+            print(f"Error sending POST request: {e}")
+
         # Send weather data to connected clients via WebSocket
         socketio.emit('weather_data', weather_data)
 

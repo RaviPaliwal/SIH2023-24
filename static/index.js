@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Connect to the SocketIO server
   const socket = io.connect(
     this.location.protocol + this.location.hostname === "localhost"
-      ? "127.0.0.1:"
+      ? "127.0.0.1:5000"
       : this.location.hostname + ":" + this.location.port
   );
 
