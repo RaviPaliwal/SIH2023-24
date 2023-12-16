@@ -115,8 +115,8 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   socket.on("sensor1_data", function (data) {
-    UpdationWithConstraint(TiltS1,data.tilt,15)
-    UpdationWithConstraint(AccelerationS1,data.acceleration,15)
+    UpdationWithConstraint(TiltS1, data.tilt, 15);
+    UpdationWithConstraint(AccelerationS1, data.acceleration, 15);
     updateChartData();
     updateChart2Data();
     document.querySelector(
@@ -128,8 +128,8 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   socket.on("sensor2_data", function (data) {
-    UpdationWithConstraint(TiltS2,data.tilt,15)
-    UpdationWithConstraint(AccelerationS2,data.acceleration,15)
+    UpdationWithConstraint(TiltS2, data.tilt, 15);
+    UpdationWithConstraint(AccelerationS2, data.acceleration, 15);
     updateChartData();
     updateChart2Data();
     document.querySelector(
@@ -257,4 +257,10 @@ document.addEventListener("DOMContentLoaded", function () {
       map.setView([32.6599, 77.2494, 10]);
     }
   );
+
+  socket.on("prediction", function (prediction) {
+    // Update the HTML content with the received prediction
+    document.getElementById("prediction-text").innerText =
+      "Prediction: " + prediction;
+  });
 });

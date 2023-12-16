@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, jsonify,request
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit
+import requests
 import numpy as np
 import joblib
 import warnings
@@ -11,36 +12,50 @@ app = Flask(__name__)
 CORS(app)
 socketio = SocketIO(app)
 
-# Load the trained machine learning model just example model
-model = joblib.load('iris_model.pkl')
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
+@app.route('/hello/<message>')
+def display_message(message):
+    print(message)
+    return f'The message is: {message}'
+
+
 @app.route('/old')
 def getlive():
-    return render_template('indexold.html')    
+    return render_template('indexold.html')
 
 
 @socketio.on('connect')
 def handle_connect():
     print('Client connected')
 
+
 @socketio.on('disconnect')
 def handle_disconnect():
     print('Client disconnected')
 
+
 def generate_sensor_data():
     while True:
         # Simulate weather data
-        temperature = round(random.uniform(-30, 5), 2)  # Simulate temperature between -30 and 5 degrees Celsius
-        weather_description = np.random.choice(['Overcast clouds', 'Clear sky', 'Snowfall'])
-        precipitation = round(random.uniform(0, 5), 2)  # Simulate precipitation between 0 and 5 mm
-        humidity = round(random.uniform(0, 100), 2)  # Simulate humidity between 0% and 100%
-        wind_speed = round(random.uniform(0, 20), 2)  # Simulate wind speed between 0 and 20 km/h
-        wind_direction = round(random.uniform(0, 360), 2)  # Simulate wind direction between 0 and 360 degrees
-        
+        # Simulate temperature between -30 and 5 degrees Celsius
+        temperature = round(random.uniform(-40, 5), 2)
+        weather_description = np.random.choice(
+            ['Overcast clouds', 'Clear sky', 'Snowfall'])
+        # Simulate precipitation between 0 and 5 mm
+        precipitation = round(random.uniform(0, 5), 2)
+        # Simulate humidity between 0% and 100%
+        humidity = round(random.uniform(0, 100), 2)
+        # Simulate wind speed between 0 and 20 km/h
+        wind_speed = round(random.uniform(0, 20), 2)
+        # Pressure
+        pressure = round(random.uniform(0, 20), 2)
+        # Simulate wind direction between 0 and 360 degrees
+        wind_direction = round(random.uniform(0, 360), 2)
+
         weather_data = {
             'temperature': temperature,
             'weather_description': weather_description,
@@ -49,23 +64,36 @@ def generate_sensor_data():
             'wind_speed': wind_speed,
             'wind_direction': wind_direction,
         }
+        data = {
+            "temperature": temperature,
+            "humidity": humidity,
+            "pressure": pressure,
+            "wind speed": wind_speed,
+            "wind direction": wind_direction,
+        }
         
+        response = requests.post('http://localhost:5000/predictavalanche', json=data)
         # Send weather data to connected clients via WebSocket
         socketio.emit('weather_data', weather_data)
-        
+
         time.sleep(2)  # Adjust the delay as needed
+
 
 def generate_sensor_data2():
     while True:
         # Simulate sensor data
         sensor1_data = {
-            'tilt': round(random.uniform(0, 30), 2),  # Simulate tilt between 0 and 30 degrees
-            'acceleration': round(random.uniform(0, 10), 2),  # Simulate acceleration between 0 and 10 m/s²
+            # Simulate tilt between 0 and 30 degrees
+            'tilt': round(random.uniform(0, 30), 2),
+            # Simulate acceleration between 0 and 10 m/s²
+            'acceleration': round(random.uniform(0, 10), 2),
         }
 
         sensor2_data = {
-            'tilt': round(random.uniform(0, 30), 2),  # Simulate tilt between 0 and 30 degrees
-            'acceleration': round(random.uniform(0, 10), 2),  # Simulate acceleration between 0 and 10 m/s²
+            # Simulate tilt between 0 and 30 degrees
+            'tilt': round(random.uniform(0, 30), 2),
+            # Simulate acceleration between 0 and 10 m/s²
+            'acceleration': round(random.uniform(0, 10), 2),
         }
 
         # Send sensor data to connected clients via WebSocket
@@ -75,23 +103,28 @@ def generate_sensor_data2():
         time.sleep(3)  # Adjust the delay as needed
 
 
-@app.route('/predict', methods=['POST'])
+# Load the trained machine learning model just example model
+model = joblib.load('avalanche.pkl')
+
+
+@app.route('/predictavalanche', methods=['POST'])
 def predict():
     warnings.filterwarnings("ignore")
     try:
         data = request.get_json()
-        features = [float(data['sepal_length']), float(data['sepal_width']), float(data['petal_length']), float(data['petal_width'])]
+        # features = ['temperature','humidity','pressure','wind speed','wind direction']
+        features = [float(data['temperature']), float(data['humidity']), float(
+            data['pressure']), float(data['wind speed']), float(data['wind direction'])]
         print(features)
-        
+
         input_features = np.array(features).reshape(1, -1)
         prediction = model.predict(input_features)
 
         # Ensure the prediction is a serializable data type (e.g., int or float)
         class_labels = {
-            0: 'Setosa',
-            1: 'Versicolor',
-            2: 'Virginica'
-        }   
+            0: 'No Possibility Detected',
+            1: 'Avalanche Possible'
+        }
         prediction = int(prediction[0])  # Convert to float
         prediction = class_labels[prediction]
 
@@ -101,13 +134,6 @@ def predict():
         return prediction
     except Exception as e:
         return jsonify(str(e))
-
-
-
-
-
-
-
 
 
 if __name__ == '__main__':
