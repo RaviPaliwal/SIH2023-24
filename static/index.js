@@ -257,10 +257,15 @@ document.addEventListener("DOMContentLoaded", function () {
       map.setView([32.6599, 77.2494, 10]);
     }
   );
+  
 
   socket.on("prediction", function (prediction) {
     // Update the HTML content with the received prediction
     document.getElementById("prediction-text").innerText =
       "Prediction: " + prediction;
+    if (prediction == "Avalanche Possible") {
+      var img = document.querySelector(".wimg");
+      img.src = "/static/warning.png";
+    }
   });
 });

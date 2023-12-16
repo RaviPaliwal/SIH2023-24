@@ -22,6 +22,22 @@ def display_message(message):
     print(message)
     return f'The message is: {message}'
 
+@app.route('/sendDHT', methods=['POST'])
+def post_data():
+    try:
+        data = request.get_json()
+        # print(data)
+        temperature = data.get('temperature')
+        humidity = data.get('humidity')
+
+        # You can process the data as needed, for example, store it in a database.
+        response = {'message': 'Data received successfully'}
+        return jsonify(response), 200
+
+    except Exception as e:
+        error_message = {'error': str(e)}
+        return jsonify(error_message), 500  
+    
 
 @app.route('/old')
 def getlive():
@@ -36,6 +52,8 @@ def handle_connect():
 @socketio.on('disconnect')
 def handle_disconnect():
     print('Client disconnected')
+
+
 
 
 def generate_sensor_data():
@@ -115,7 +133,7 @@ def predict():
         # features = ['temperature','humidity','pressure','wind speed','wind direction']
         features = [float(data['temperature']), float(data['humidity']), float(
             data['pressure']), float(data['wind speed']), float(data['wind direction'])]
-        print(features)
+        # print(features)
 
         input_features = np.array(features).reshape(1, -1)
         prediction = model.predict(input_features)
@@ -139,4 +157,4 @@ def predict():
 if __name__ == '__main__':
     socketio.start_background_task(generate_sensor_data)
     socketio.start_background_task(generate_sensor_data2)
-    socketio.run(app, debug=True)
+    socketio.run(app, host='0.0.0.0',port=5000,debug=True)
