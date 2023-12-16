@@ -79,8 +79,10 @@ def generate_sensor_data():
             'weather_description': weather_description,
             'precipitation': precipitation,
             'humidity': humidity,
+            'pressure': pressure,
             'wind_speed': wind_speed,
             'wind_direction': wind_direction,
+
         }
         data = {
             "temperature": temperature,
@@ -98,7 +100,7 @@ def generate_sensor_data():
         # Send weather data to connected clients via WebSocket
         socketio.emit('weather_data', weather_data)
 
-        time.sleep(2)  # Adjust the delay as needed
+        time.sleep(3)  # Adjust the delay as needed
 
 
 def generate_sensor_data2():
@@ -161,4 +163,4 @@ def predict():
 if __name__ == '__main__':
     socketio.start_background_task(generate_sensor_data)
     socketio.start_background_task(generate_sensor_data2)
-    socketio.run(app, host='0.0.0.0',port=5000)
+    socketio.run(app, host='0.0.0.0',port=5000,allow_unsafe_werkzeug=True)

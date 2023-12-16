@@ -163,6 +163,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const humidity = data.humidity;
     const windSpeed = data.wind_speed;
     const windDirection = data.wind_direction;
+    const pressure = data.pressure;
 
     // Update the weather broadcast element
     weatherBoardcastElement.innerHTML = `
@@ -171,10 +172,93 @@ document.addEventListener("DOMContentLoaded", function () {
           <p>Weather Description: ${description}</p>
           <p>Precipitation: ${precipitation} mm</p>
           <p>Humidity: ${humidity}%</p>
+          <p>Pressure: ${pressure}Pa</p>
           <p>Wind Speed: ${windSpeed} km/h</p>
           <p>Wind Direction: ${windDirection}°</p>
       `;
   }
+
+  // // Initialize the map
+  // var map = L.map("map");
+
+  // // Add OpenStreetMap as the base map layer
+  // L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  //   attribution: "© OpenStreetMap contributors",
+  // }).addTo(map);
+
+  // // Attempt to get the user's current location
+  // navigator.geolocation.getCurrentPosition(
+  //   function (position) {
+  //     // If successful, center the map around the user's location
+  //     var userLocation = [position.coords.latitude, position.coords.longitude];
+  //     map.setView(userLocation, 11);
+
+  //     // Sample locations with different emergency levels
+  //     var locations = [
+  //       {
+  //         coordinates: [32.6599, 77.2494],
+  //         level: "emergency",
+  //         message: "Avalanche in Himachal Pradesh",
+  //       },
+  //       {
+  //         coordinates: [34.1526, 77.5771],
+  //         level: "warning",
+  //         message: "Possible Avalanche in Jammu and Kashmir",
+  //       },
+  //       {
+  //         coordinates: [35.3191, 78.5665],
+  //         level: "good",
+  //         message: "Safe Zone in Ladakh",
+  //       },
+  //       {
+  //         coordinates: [30.8827, 77.611],
+  //         level: "emergency",
+  //         message: "Urgent Alert in Uttarakhand",
+  //       },
+  //       {
+  //         coordinates: [33.7782, 76.5762],
+  //         level: "warning",
+  //         message: "Potential Danger in Punjab",
+  //       },
+  //       {
+  //         coordinates: [31.1471, 77.1089],
+  //         level: "good",
+  //         message: "No Threat in Himachal Pradesh",
+  //       },
+  //     ];
+
+  //     // Define icon colors based on emergency levels
+  //     var iconColors = {
+  //       emergency: "red",
+  //       good: "green",
+  //       warning: "yellow",
+  //     };
+
+  //     locations.forEach(function (location) {
+  //       var marker = L.marker(location.coordinates, {
+  //         icon: L.divIcon({
+  //           className: "custom-marker marker-" + iconColors[location.level],
+  //           iconSize: [30, 30],
+  //           iconAnchor: [15, 30],
+  //         }),
+  //       }).addTo(map);
+
+  //       // Add tooltip to show information on hover
+  //       marker
+  //         .bindTooltip(location.message, {
+  //           permanent: true,
+  //           direction: "top",
+  //           opacity: 0.7,
+  //         })
+  //         .openTooltip();
+  //     });
+  //   },
+  //   function (error) {
+  //     // Handle errors if geolocation is not supported or permission is denied
+  //     console.error("Error getting user location:", error.message);
+  //     map.setView([32.45, 76.47, 10]);
+  //   }
+  // );
 
   // Initialize the map
   var map = L.map("map");
@@ -184,80 +268,71 @@ document.addEventListener("DOMContentLoaded", function () {
     attribution: "© OpenStreetMap contributors",
   }).addTo(map);
 
-  // Attempt to get the user's current location
-  navigator.geolocation.getCurrentPosition(
-    function (position) {
-      // If successful, center the map around the user's location
-      var userLocation = [position.coords.latitude, position.coords.longitude];
-      map.setView(userLocation, 11);
+  // Set Chandigarh as the default location
+  var defaultLocation = [30.73331480, 76.77941790];
+  map.setView(defaultLocation, 11);
 
-      // Sample locations with different emergency levels
-      var locations = [
-        {
-          coordinates: [32.6599, 77.2494],
-          level: "emergency",
-          message: "Avalanche in Himachal Pradesh",
-        },
-        {
-          coordinates: [34.1526, 77.5771],
-          level: "warning",
-          message: "Possible Avalanche in Jammu and Kashmir",
-        },
-        {
-          coordinates: [35.3191, 78.5665],
-          level: "good",
-          message: "Safe Zone in Ladakh",
-        },
-        {
-          coordinates: [30.8827, 77.611],
-          level: "emergency",
-          message: "Urgent Alert in Uttarakhand",
-        },
-        {
-          coordinates: [33.7782, 76.5762],
-          level: "warning",
-          message: "Potential Danger in Punjab",
-        },
-        {
-          coordinates: [31.1471, 77.1089],
-          level: "good",
-          message: "No Threat in Himachal Pradesh",
-        },
-      ];
-
-      // Define icon colors based on emergency levels
-      var iconColors = {
-        emergency: "red",
-        good: "green",
-        warning: "yellow",
-      };
-
-      locations.forEach(function (location) {
-        var marker = L.marker(location.coordinates, {
-          icon: L.divIcon({
-            className: "custom-marker marker-" + iconColors[location.level],
-            iconSize: [30, 30],
-            iconAnchor: [15, 30],
-          }),
-        }).addTo(map);
-
-        // Add tooltip to show information on hover
-        marker
-          .bindTooltip(location.message, {
-            permanent: true,
-            direction: "top",
-            opacity: 0.7,
-          })
-          .openTooltip();
-      });
+  // Sample emergency locations with different emergency levels
+  var emergencyLocations = [
+    {
+      coordinates: [32.6599, 77.2494],
+      level: "emergency",
+      message: "Avalanche in Himachal Pradesh",
     },
-    function (error) {
-      // Handle errors if geolocation is not supported or permission is denied
-      console.error("Error getting user location:", error.message);
-      map.setView([32.6599, 77.2494, 10]);
-    }
-  );
-  
+    {
+      coordinates: [34.1526, 77.5771],
+      level: "warning",
+      message: "Possible Avalanche in Jammu and Kashmir",
+    },
+    {
+      coordinates: [35.3191, 78.5665],
+      level: "good",
+      message: "Safe Zone in Ladakh",
+    },
+    {
+      coordinates: [30.8827, 77.611],
+      level: "emergency",
+      message: "Urgent Alert in Uttarakhand",
+    },
+    {
+      coordinates: [33.7782, 76.5762],
+      level: "warning",
+      message: "Potential Danger in Punjab",
+    },
+    {
+      coordinates: [31.1471, 77.1089],
+      level: "good",
+      message: "No Threat in Himachal Pradesh",
+    },
+  ];
+
+  // Define icon colors based on emergency levels
+  var iconColors = {
+    emergency: "red",
+    good: "green",
+    warning: "yellow",
+  };
+
+  emergencyLocations.forEach(function (location) {
+    var marker = L.marker(location.coordinates, {
+      icon: L.divIcon({
+        className: "custom-marker marker-" + iconColors[location.level],
+        iconSize: [30, 30],
+        iconAnchor: [15, 30],
+      }),
+    }).addTo(map);
+
+    // Add tooltip to show information on hover
+    marker
+      .bindTooltip(location.message, {
+        permanent: true,
+        direction: "top",
+        opacity: 0.7,
+      })
+      .openTooltip();
+  });
+
+  // If you want to add more locations, you can continue to add them to the emergencyLocations array.
 
   socket.on("prediction", function (prediction) {
     // Update the HTML content with the received prediction
@@ -266,8 +341,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (prediction == "Avalanche Possible") {
       var img = document.querySelector(".wimg");
       img.src = "/static/warning.png";
-    }
-    else{
+    } else {
       var img = document.querySelector(".wimg");
       img.src = "/static/safe.png";
     }
