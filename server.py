@@ -100,7 +100,7 @@ def generate_sensor_data():
         # Send weather data to connected clients via WebSocket
         socketio.emit('weather_data', weather_data)
 
-        time.sleep(3)  # Adjust the delay as needed
+        time.sleep(4)  # Adjust the delay as needed
 
 
 def generate_sensor_data2():
