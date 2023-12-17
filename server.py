@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify,request
+from flask import Flask, render_template, jsonify, request
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit
 import requests
@@ -7,6 +7,7 @@ import joblib
 import warnings
 import random
 import time
+import logging
 
 app = Flask(__name__)
 CORS(app)
@@ -17,27 +18,82 @@ socketio = SocketIO(app)
 def index():
     return render_template('index.html')
 
+
 @app.route('/hello/<message>')
 def display_message(message):
     print(message)
     return f'The message is: {message}'
 
-@app.route('/sendDHT', methods=['POST'])
+
+@app.route('/sendData', methods=['POST'])
 def post_data():
     try:
         data = request.get_json()
-        # print(data)
+        # app.logger.info(data)  # Use app.logger to log the data
         temperature = data.get('temperature')
+        weather_description = data.get('weather_description')
+        precipitation = data.get('precipitation')
         humidity = data.get('humidity')
+        pressure = data.get('pressure')
+        wind_speed = data.get('wind_speed')
+        wind_direction = data.get('wind_direction')
 
+        weather_data = {
+            'temperature': temperature,
+            'weather_description': weather_description,
+            'precipitation': precipitation,
+            'humidity': humidity,
+            'pressure': pressure,
+            'wind_speed': wind_speed,
+            'wind_direction': wind_direction,
+
+        }
+        data = {
+            "temperature": temperature,
+            "humidity": humidity,
+            "pressure": pressure,
+            "wind speed": wind_speed,
+            "wind direction": wind_direction,
+        }
+
+        try:
+            response = requests.post(
+                'http://127.0.0.1:5000/predictavalanche', json=data)
+        except Exception as e:
+            print(f"Error sending POST request: {e}")
+
+        # Send weather data to connected clients via WebSocket
+        socketio.emit('weather_data', weather_data)
         # You can process the data as needed, for example, store it in a database.
         response = {'message': 'Data received successfully'}
         return jsonify(response), 200
 
     except Exception as e:
         error_message = {'error': str(e)}
-        return jsonify(error_message), 500  
-    
+        app.logger.error(error_message)  # Log the error
+        return jsonify(error_message), 500
+
+
+@app.route('/sendSensorData', methods=['post'])
+def sendSensorData():
+    try:
+        data = request.get_json()
+        sensor_data = {
+            'tilt': data.get('tilt'),
+            'acceleration': data.get('acceleration'),
+        }
+        if (data.get('sensor') == 1):
+            socketio.emit('sensor1_data', sensor_data)
+        elif (data.get('sensor') == 2):
+            socketio.emit('sensor2_data', sensor_data)
+        else:
+            print("Empty Sensor Data")
+
+    except Exception as e:
+        error_message = {'error': str(e)}
+        app.logger.error(error_message)  # Log the error
+        return jsonify(error_message), 500
+
 
 @app.route('/old')
 def getlive():
@@ -52,6 +108,56 @@ def handle_connect():
 @socketio.on('disconnect')
 def handle_disconnect():
     print('Client disconnected')
+
+
+# Load the trained machine learning model just example model
+model = joblib.load('avalanche.pkl')
+
+
+@app.route('/predictavalanche', methods=['POST'])
+def predict():
+    warnings.filterwarnings("ignore")
+    try:
+        data = request.get_json()
+        # features = ['temperature','humidity','pressure','wind speed','wind direction']
+        features = [float(data['temperature']), float(data['humidity']), float(
+            data['pressure']), float(data['wind speed']), float(data['wind direction'])]
+        # print(features)
+
+        input_features = np.array(features).reshape(1, -1)
+        prediction = model.predict(input_features)
+
+        # Ensure the prediction is a serializable data type (e.g., int or float)
+        class_labels = {
+            0: 'No Possibility Detected',
+            1: 'Avalanche Possible'
+        }
+        prediction = int(prediction[0])  # Convert to float
+        prediction = class_labels[prediction]
+
+        # Send prediction to connected clients via WebSocket
+        socketio.emit('prediction', prediction)
+
+        return prediction
+    except Exception as e:
+        return jsonify(str(e))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -91,16 +197,17 @@ def generate_sensor_data():
             "wind speed": wind_speed,
             "wind direction": wind_direction,
         }
-        
+
         try:
-            response = requests.post('http://127.0.0.1:5000/predictavalanche', json=data)
+            response = requests.post(
+                'http://127.0.0.1:5000/predictavalanche', json=data)
         except Exception as e:
             print(f"Error sending POST request: {e}")
 
         # Send weather data to connected clients via WebSocket
         socketio.emit('weather_data', weather_data)
 
-        time.sleep(4)  # Adjust the delay as needed
+        time.sleep(10)  # Adjust the delay as needed
 
 
 def generate_sensor_data2():
@@ -124,43 +231,12 @@ def generate_sensor_data2():
         socketio.emit('sensor1_data', sensor1_data)
         socketio.emit('sensor2_data', sensor2_data)
 
-        time.sleep(3)  # Adjust the delay as needed
+        time.sleep(10)  # Adjust the delay as needed
 
-
-# Load the trained machine learning model just example model
-model = joblib.load('avalanche.pkl')
-
-
-@app.route('/predictavalanche', methods=['POST'])
-def predict():
-    warnings.filterwarnings("ignore")
-    try:
-        data = request.get_json()
-        # features = ['temperature','humidity','pressure','wind speed','wind direction']
-        features = [float(data['temperature']), float(data['humidity']), float(
-            data['pressure']), float(data['wind speed']), float(data['wind direction'])]
-        # print(features)
-
-        input_features = np.array(features).reshape(1, -1)
-        prediction = model.predict(input_features)
-
-        # Ensure the prediction is a serializable data type (e.g., int or float)
-        class_labels = {
-            0: 'No Possibility Detected',
-            1: 'Avalanche Possible'
-        }
-        prediction = int(prediction[0])  # Convert to float
-        prediction = class_labels[prediction]
-
-        # Send prediction to connected clients via WebSocket
-        socketio.emit('prediction', prediction)
-
-        return prediction
-    except Exception as e:
-        return jsonify(str(e))
 
 
 if __name__ == '__main__':
     socketio.start_background_task(generate_sensor_data)
     socketio.start_background_task(generate_sensor_data2)
-    socketio.run(app, host='0.0.0.0',port=5000,allow_unsafe_werkzeug=True)
+    socketio.run(app, host='0.0.0.0', port=5000,
+                 allow_unsafe_werkzeug=True, debug=True)
